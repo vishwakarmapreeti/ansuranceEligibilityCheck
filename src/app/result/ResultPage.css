@@ -1,0 +1,32 @@
+.result-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #4b0082;
+}
+
+.result-box {
+  padding: 25px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.success {
+  border: 2px solid green;
+  background: #eaffea;
+  color: green;
+}
+
+.error {
+  border: 2px solid red;
+  background: #ffeaea;
+  color: red;
+}
