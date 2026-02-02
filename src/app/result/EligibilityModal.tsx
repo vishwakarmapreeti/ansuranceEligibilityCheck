@@ -16,7 +16,9 @@ export default function EligibilityModal({
         <Modal.Title>Tukooon Insurance Result</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body className="text-center">
+      <Modal.Body className="text-center" id="eligible_result"
+      data-result={result.eligible ? 'eligible' : 'not-eligible'}
+>
         {result.eligible ? (
           <>
             <Image
@@ -59,7 +61,7 @@ export default function EligibilityModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={handleClose}>
+        <Button type="button" variant="secondary" onClick={handleClose}   data-testid="eligible-close-btn" >
           Close
         </Button>
       </Modal.Footer>
