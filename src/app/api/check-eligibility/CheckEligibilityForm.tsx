@@ -188,7 +188,7 @@ setFormData({
 
       {/* ================= Submit ================= */}
 
-      <button type="submit" className="submit-btn">
+      <button type="submit" className="submit-btn"  name="submit">
         Check Eligibility
       </button>
 
