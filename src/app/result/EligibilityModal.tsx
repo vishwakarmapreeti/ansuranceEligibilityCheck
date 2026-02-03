@@ -61,10 +61,11 @@ export default function EligibilityModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={handleClose}   id="eligible-close-btn" >
+        <Button type="button" variant="secondary" onClick={handleClose} id="eligible-close-btn">
           Close
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
+y
