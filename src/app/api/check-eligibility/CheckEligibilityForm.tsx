@@ -23,7 +23,7 @@ export default function CheckEligibilityForm() {
   });
 
   const [showModal, setShowModal] = useState(false);
-const [resultData, setResultData] = useState<any>(null);
+  const [resultData, setResultData] = useState<any>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -31,43 +31,43 @@ const [resultData, setResultData] = useState<any>(null);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const res = await fetch("/api/check-eligibility", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  });
+    const res = await fetch("/api/check-eligibility", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  // ✅ Store Result in State
-  setResultData({
-    eligible: data.eligible,
-    name: formData.patientName,
-    message: data.message,
-  });
+    // ✅ Store Result in State
+    setResultData({
+      eligible: data.eligible,
+      name: formData.patientName,
+      message: data.message,
+    });
 
-  // ✅ Open Modal
-  setShowModal(true);
+    // ✅ Open Modal
+    setShowModal(true);
 
-setFormData({
-  patientName: "",
-  dob: "",
-  patientId: "",
+    setFormData({
+      patientName: "",
+      dob: "",
+      patientId: "",
 
-  policyNumber: "",
-  insuranceCompany: "Sukooon Insurance", // keep default
+      policyNumber: "",
+      insuranceCompany: "Sukooon Insurance", // keep default
 
-  treatmentCategory: "",
-  treatmentDate: "",
+      treatmentCategory: "",
+      treatmentDate: "",
 
-  hospital: "",
-  physician: "",
-});
+      hospital: "",
+      physician: "",
+    });
 
-};
+  };
 
   return (
     <form className="eligibility-form" onSubmit={handleSubmit}>
@@ -104,13 +104,14 @@ setFormData({
 
           {/* Patient ID */}
           <div>
-            <label>Patient ID (Optional)</label>
+            <label>Patient ID <span className="optional">*</span></label>
             <input
               type="text"
               name="patientId"
               placeholder="e.g., PT-2026-001234"
               value={formData.patientId}
               onChange={handleChange}
+              required
             />
           </div>
         </div>
@@ -145,6 +146,10 @@ setFormData({
           <option>Cardiology</option>
           <option>Orthopedic</option>
           <option>Neurology</option>
+          <option>Oncology</option>
+          <option>Pediatrics</option>
+          <option>Dermatology</option>
+          <option>Gastroenterology</option>
         </select>
 
         <label>Scheduled Treatment Date (Optional)</label>
@@ -188,18 +193,18 @@ setFormData({
 
       {/* ================= Submit ================= */}
 
-      <button type="submit" className="submit-btn"  name="submit">
+      <button type="submit" className="submit-btn" name="submit">
         Check Eligibility
       </button>
 
       {resultData && (
-      <EligibilityModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        result={resultData}
-      />
-    )}  
+        <EligibilityModal
+          show={showModal}
+          handleClose={() => setShowModal(false)}
+          result={resultData}
+        />
+      )}
     </form>
-    
+
   );
 }

@@ -27,7 +27,11 @@ export default function Navbar() {
           <Link href="/">Dashboard</Link>
         </li>
         <li>
-          <Link href="/check-eligibility">Eligibility Check</Link>
+          <Link href="/eligibility">Eligibility Check</Link>
+        </li>
+
+        <li>
+          <Link href="/policy-holders">Policy Holder</Link>
         </li>
         <li>
           <Link href="/result">Results</Link>

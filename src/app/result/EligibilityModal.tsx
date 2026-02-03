@@ -13,7 +13,7 @@ export default function EligibilityModal({
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Tukooon Insurance Result</Modal.Title>
+        <Modal.Title>Sukooon Insurance Result</Modal.Title>
       </Modal.Header>
 
       <Modal.Body className="text-center" id="eligible_result"
@@ -61,7 +61,7 @@ export default function EligibilityModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={handleClose}   data-testid="eligible-close-btn" >
+        <Button type="button" variant="secondary" onClick={handleClose}   id="eligible-close-btn" >
           Close
         </Button>
       </Modal.Footer>

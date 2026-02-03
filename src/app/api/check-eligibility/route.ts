@@ -1,72 +1,44 @@
 import { NextResponse } from "next/server";
+import { dummyPatients } from "../../policy-holders/data";
 
 export async function POST(req: Request) {
   const body = await req.json();
 
   const {
-    insuranceCompany,
-    policyNumber,
-    hospital,
-    treatmentCategory,
+    patientId,
+
+    treatmentCategory, // selected from dropdown (ONE value)
   } = body;
 
-  // ✅ Sukooon Insurance Policies Dummy Data
-  const policies = [
-    {
-      policyNumber: "SUK12345",
-      insuranceCompany: "Sukooon Insurance",
-      networkHospitals: [
-        "Apollo Hospital Mumbai",
-        "Fortis Hospital Mulund",
-        "Nanavati Max Hospital",
-      ],
-      coveredTreatments: ["Surgery", "Dental", "Cardiology"],
-    },
-
-    {
-      policyNumber: "SUK67890",
-      insuranceCompany: "Sukooon Insurance",
-      networkHospitals: [
-        "Kokilaben Ambani Hospital",
-        "Lilavati Hospital Bandra",
-      ],
-      coveredTreatments: ["Orthopedic", "Neurology"],
-    },
-  ];
-
-  // ✅ Step 1: Policy Match
-  const policy = policies.find(
+  // 1️⃣ Find patient by patientId OR policyNumber
+  const patient = dummyPatients.find(
     (p) =>
-      p.policyNumber === policyNumber &&
-      p.insuranceCompany === insuranceCompany
+      p.patientId === patientId
   );
 
-  if (!policy) {
+  // 2️⃣ If patient not found
+  if (!patient) {
     return NextResponse.json({
       eligible: false,
-      message: " Sukooon Policy not found. Please enter correct Policy Number.",
+      message: "Patient or policy not found ",
     });
   }
 
-  // ✅ Step 2: Hospital Check
-  if (!policy.networkHospitals.includes(hospital)) {
+  // 3️⃣ Validate ONLY treatmentCategory category
+  const istreatmentCategoryEligible =
+    patient.treatmentCategory.includes(treatmentCategory);
+
+  // 4️⃣ If treatmentCategory NOT covered
+  if (!istreatmentCategoryEligible) {
     return NextResponse.json({
       eligible: false,
-      message: " Hospital not covered under Sukooon Insurance network.",
+      message: `Not eligible  "${treatmentCategory}" is not covered under this policy`,
     });
   }
 
-  // ✅ Step 3: Treatment Check
-  if (!policy.coveredTreatments.includes(treatmentCategory)) {
-    return NextResponse.json({
-      eligible: false,
-      message: " Treatment not covered in Sukooon Insurance policy.",
-    });
-  }
-
-  // ✅ Eligible
+  // 5️⃣ Eligible case
   return NextResponse.json({
     eligible: true,
-    message: "Patient Eligible! Sukooon Insurance Cashless Available.",
+    message: `Eligible  "${treatmentCategory}" is covered for ${patient.patientName}`,
   });
 }
