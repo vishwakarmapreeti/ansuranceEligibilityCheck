@@ -68,4 +68,3 @@ export default function EligibilityModal({
     </Modal>
   );
 }
-y

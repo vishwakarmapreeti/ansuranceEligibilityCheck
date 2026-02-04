@@ -3,7 +3,7 @@
 import { useState } from "react";
 import "./CheckEligibilityForm.css";
 import { useRouter } from "next/navigation";
-import EligibilityModal from "@/app/result/EligibilityModal";
+// import EligibilityModal from "@/app/result/EligibilityModal";
 export default function CheckEligibilityForm() {
   const router = useRouter();
 
@@ -43,14 +43,26 @@ export default function CheckEligibilityForm() {
     const data = await res.json();
 
     // ✅ Store Result in State
-    setResultData({
-      eligible: data.eligible,
-      name: formData.patientName,
-      message: data.message,
-    });
+    // setResultData({
+    //   eligible: data.eligible,
+    //   name: formData.patientName,
+    //   message: data.message,
+    // });
 
-    // ✅ Open Modal
-    setShowModal(true);
+
+    // setShowModal(true);
+
+    sessionStorage.setItem(
+  "eligibilityResult",
+  JSON.stringify({
+    eligible: data.eligible,
+    name: formData.patientName,
+    message: data.message,
+  })
+);
+      router.push(
+    `/result`
+  );
 
     setFormData({
       patientName: "",
@@ -197,13 +209,13 @@ export default function CheckEligibilityForm() {
         Check Eligibility
       </button>
 
-      {resultData && (
+      {/* {resultData && (
         <EligibilityModal
           show={showModal}
           handleClose={() => setShowModal(false)}
           result={resultData}
         />
-      )}
+      )} */}
     </form>
 
   );
